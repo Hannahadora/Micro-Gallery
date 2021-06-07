@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body class="bg-gray-700">
+    <div class="mt-40">
+        <h1 class="text-center text-white text-xl font-bold mb-3 font-serif">Welcome!</h1>
+        <form id="loginForm" class="bg-white shadow-xl">
+           <input class="form-input" type="text" id="username" placeholder="Username">
+           <input class="form-input" type="password" id="userPassword" placeholder="Password">
+           <input class="form-input" type="submit" value="Login">
+        </form>
+
+        <p class="text-center text-white text-sm mt-5">Don't have an account? 
+            <a class="text-white border border-red-500 px-12 py-2 font-bold rounded" href="index.html">Create One</a></p>
+    </div> 
+
+
+
+
+    <script>
+
+            const loginForm = document.getElementById('loginForm');
+            const userName = document.getElementById('username');
+            const userPassword = document.getElementById('userPassword');
+
+            users = JSON.parse(localStorage.getItem('users'))
+            user = JSON.parse(localStorage.getItem('user'))
+
+
+
+
+            loginForm.addEventListener('submit', validateLogin)
+            function validateLogin(e) {
+                e.preventDefault()
+
+                for(i = 0; i < users.length; i++) {
+                    if(userName.value == users[i].fullname && userPassword.value == users[i].password) {
+                        alert('You are logged in.');
+                        location.href = "gallery.html"
+                    }else {
+                        alert('Invalid Login details.');
+                }
+                }
+                
+            }
+
+    </script>
+</body>
+</html>

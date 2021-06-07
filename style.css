@@ -1,0 +1,129 @@
+body{
+    font-family: montserrat;
+}
+#signUpForm, 
+#loginForm {
+    width: 33.3%;
+    margin: auto;
+    border-radius: 4px;
+    background: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap:20px;  
+    font-size: 14px;
+}
+.form-input{
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.form-input :focus {
+    outline: 2px solid transparent;
+}
+input[type='submit'] {
+    padding: 10px;
+    background: red;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+select {
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+
+Nav {
+    display: flex;
+    flex: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav {
+    padding: 20px 0;
+    color: #fff;
+}
+
+#createGallery {
+    border-radius: 4px;
+    padding:5px 32px;
+    background-color: rgb(48, 48, 48);
+}
+
+#searchGallery {
+    border-radius: 4px;
+    padding:5px 20px;
+    background-color: rgb(38, 96, 110);
+}
+
+#saveGallery {
+    background-color: rgb(240, 115, 115);
+    padding: 5px;
+}
+
+#saveGallery :hover{
+    background-color: rgb(148, 2, 2);
+}
+
+.filter-input {
+    border-bottom: 1px solid black;
+}
+
+.error {
+    color: red;
+}
+
+.succes {
+    color: green;
+}
+
+/* .gn {
+    width: auto;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+} */
+
+.upload {
+    border-radius: 20%;
+    padding: 2px 7px;
+}
+
+.wedge {
+    padding: 0 100px; 
+}
+
+@media (max-width:1024px) {
+    #signUpForm,
+    #loginForm {
+        width: 60%;
+    }
+    .wedge {
+        padding: 10px 80px; 
+    }
+}
+
+@media (max-width:768px) {
+    #signUpForm,
+    #loginForm {
+        width: 80%;
+    }
+    .wedge {
+        padding: 10px 50px; 
+    }
+}
+
+@media (max-width:540px) {
+    #signUpForm,
+    #loginForm {
+        width: 90%;
+    }
+    .wedge {
+        padding: 10px 10px; 
+    }
+}
