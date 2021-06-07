@@ -1,5 +1,5 @@
 body{
-    font-family: montserrat;
+    font-family: Avenir next;
 }
 #signUpForm, 
 #loginForm {
@@ -44,7 +44,7 @@ Nav {
 }
 
 .nav {
-    padding: 20px 0;
+    padding: 15px 0;
     color: #fff;
 }
 
