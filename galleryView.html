@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Document</title>
+</head>
+<body class="bg-gray-700">
+    <Nav class="wedge bg-gray-700  w-full fixed top-0 z-50">
+        <h1><a href="#" class="nav text-sm">Gallery</a></h1>
+        <a href="login.html" id="un" class="nav"></a>
+    </Nav>
+
+    <div class="wedge bg-white mt-10 flex items-center justify-between">
+        <button class="px-5 py-1 my-3 font-medium border hover:border-black rounded text-sm"><a href="initgallery.html">Close</a></button>
+        <p id="gn" class="px-5 py-1 my-3 font-medium text-sm"></p>
+        <div class="flex items-center justify-between gap-5">
+            <button id="DeleteBtn" class="px-5 py-1 my-3 font-medium bg-red-300 hover:bg-red-500 rounded text-sm">Delete Gallery</button>
+            <div>
+                <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+                <label for="file" style="cursor: pointer;" class="upload">Upload Image</label>
+            </div>
+        </div>
+    </div>
+
+    <div id="imgRack" class="wedge grid grid-cols-3 my-10">
+
+    </div>
+
+    
+    <script src="definition.js"></script>
+    <script src="functions.js"></script>
+    <script src="controller.js"></script>
+    <script src="galleryview.js"></script>
+
+
+
+</body>
+</html>

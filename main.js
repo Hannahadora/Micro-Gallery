@@ -21,18 +21,69 @@ createBtn.addEventListener('click', (e) => {
 
 
 function gGUId() {
-    var randomString = function(length) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for(var i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-    }
-    // random string length
-      galleryId = randomString(3);
+    return randomString(3);
     // insert random string to the field
 };
+
+
+function loadFile(event, Gid) {
+    console.log(event)
+    const img = document.createElement('img')
+    img.classList='pic grid grid-col'
+    img.style.background = 'red'
+    img.src = URL.createObjectURL(event.target.files[0])
+    let images = document.querySelector('#imageDisplay' + Gid)
+    // document.body.appendChild(img)
+    images.appendChild(img)   
+
+    addImages(Gid, img.src)
+ 
+}
+
+function fetchImages(){
+
+    let galleries= localStorage.getItem('galleries');
+    console.log(galleries);
+    if(galleries){
+        galleries && JSON.parse(galleries).map((current, idx, array)=>{
+            // add the name of the gallery to the DOM
+        
+            // create the elements holding a gallery
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(galleryTemplate(current.Gid), "text/html");
+        
+            // create div element
+            const imagesview = document.createElement('div')
+            imagesview.classList='pic grid grid-cols-2'
+
+            // create img element that will be added into the div element
+            current && current.images ? current.images.slice(0, 3).map((image, imagidx, imgArray)=>{
+                const img = document.createElement('img')
+                img.style.background = 'red'
+                img.src = image
+                imagesview.appendChild(img)   
+            }): alert(`no images for gallery ${current.Gid}`)
+            
+            galleryDisplayView.appendChild(doc.documentElement)
+        
+            console.log(current.Gid)
+        })
+    }else{
+         // create div element
+         const imagesview = document.createElement('div')
+         imagesview.classList='pic grid grid-cols-2'
+         imagesview.innerHTML
+         
+         galleryDisplayView.appendChild(imagesview)
+     
+    }
+  
+}
+
+// window.onload= ()=>{
+//     fetchImages()
+//     alert('it works')
+// }
 
 
 class Gallery {
@@ -40,43 +91,44 @@ class Gallery {
         this.title = title;
         this.Gid = Gid;
         this.userId = userId;
-        this.images = images
+        this.images = [
+    
+        ]
     }
 }
  
+const galleryTemplate =(Gid, title)=>  {
+    return `<div><div class="flex items-center justify-between">
+        <div class="flex items-center gap-5">
+            <p class="gn text-xs bg-blue-200 text-gray-500 rounded-xl p-2 text-white">${title} Gallery</p>
+            <div >
+                <p id="uploadBtn-${Gid}"></p>
+            </div>
+        </div>
+        <i title="deleteGallery" class="delete fas fa-trash-alt hover:text-red-500 cursor-pointer"></i>
+        </div>
+        <div id="imageDisplay${Gid}" class=" grid grid-cols-2">
+        </div></div>`
+}
 
 class UI {
     addGalleryToDisplay(gallery) {
        
+        gGUId()
+        const parser = new DOMParser();
+
         const uploadInput = document.createElement('input')
-            uploadInput.setAttribute( 'accept', "image/*" )
-            uploadInput.id = "file"
-            uploadInput.style.display = 'block'
-            uploadInput.setAttribute('type', "file")
-            uploadInput.addEventListener('change',()=> loadFile(`${gallery.Gid}`))
 
-        const row = document.createElement('div') 
-            row.className = 'newGallery border border-gray-700 border-dashed rounded-xl py-2 px-3'
+                uploadInput.setAttribute( 'accept', "image/*" )
+                uploadInput.id = "file"
+                uploadInput.style.display = 'block'
+                uploadInput.setAttribute('type', "file")
+                uploadInput.addEventListener('change',(e)=> loadFile( e,`${gallery.Gid}`))
 
-            row.insertAdjacentHTML("beforeend", 
-            `
-             <div class="flex items-center justify-between">
-                     <div class="flex items-center gap-5">
-                         <p class="gn text-xs  bg-blue-200 text-gray-500 rounded-xl p-2 text-white">${gallery.title} Gallery</p>
-                         <div >
-                             <p id="${gallery.Gid}"></p>
-                             <p><label for="file" title="Upload Images" style="cursor: pointer;" class="upload shadow"><i class="hover:text-green-500 fas fa-cloud-upload-alt"></i></label></p>
-                         </div>
-                     </div>
-                     <i title="deleteGallery" class="delete fas fa-trash-alt hover:text-red-500 cursor-pointer"></i>
-                 </div>
-                 <div class="imageDisplay${gallery.Gid} grid grid-cols-2">
-               </div>
-             `
-             )
-            
-            galleryDisplay.appendChild(row)
-            row.querySelector(`#${gallery.Gid}`).appendChild(uploadInput)
+        const doc = parser.parseFromString(galleryTemplate(gallery.Gid), "text/html")
+        doc.querySelector(`#uploadBtn-${gallery.Gid}`).appendChild(uploadInput)
+        galleryDisplay.appendChild(doc.documentElement)
+
     }
 
     showAlert(message, className) {
@@ -115,6 +167,7 @@ class Store {
             const ui = new UI;
 
             ui.addGalleryToDisplay(gallery);
+            
         });
     }
 
@@ -126,18 +179,15 @@ class Store {
        localStorage.setItem('galleries', JSON.stringify(galleries));
     }
 
-    static removeGallery(title) {
+    static removeGallery(Gid) {
         const galleries = Store.getGalleries();
 
-        galleries.forEach(function(gallery) {
-           if(gallery.title === title) {
-               gallery.splice(index, 1);
-           }
-        });
+        let gallery = galleries.find( (el) => el.Gid == Gid)
+        galleries.pop(gallery)
 
         localStorage.setItem('galleries', JSON.stringify(galleries));
 
-        console.log(title)
+        console.log(Gid)
     }
 }
 
@@ -148,6 +198,8 @@ document.addEventListener('DOMContentLoaded',  function() {
 
     user = JSON.parse(localStorage.getItem('user'))
     galleries = JSON.parse(localStorage.getItem('galleries'));
+
+    document.querySelector('#un').innerText = user.fullname
     
     if (galleries == null) {
         galleries = [];
@@ -158,19 +210,33 @@ document.addEventListener('DOMContentLoaded',  function() {
     
     Store.displayGalleries()
 
-    
+    // fetchImages()
 });
 
 
+function addImages(Gid, src) {
+
+
+       let gallery = galleries.find( (el) => el.Gid == Gid)
+       gallery.images.push(src)
+
+    //    galleries.push(gallery)
+        localStorage.setItem('galleries', JSON.stringify(galleries))
+
+        console.log(src, galleries)
+}
+
+
+
 galleryForm.addEventListener('submit', function(e) {
-    gGUId()
+    
     user = JSON.parse(localStorage.getItem('user'))
 
 
     const userId = user.id;
-    const Gid = galleryId;
+    const Gid = gGUId();
     const title = document.getElementById('gallery-name').value
-    const images = document.querySelector('.imageDisplay')
+    const images = []
 
     const gallery = new Gallery(Gid, userId, title, images);
 
@@ -198,45 +264,19 @@ galleryForm.addEventListener('submit', function(e) {
         // }
 
     e.preventDefault()
-})
+});
 
-galleryDisplay.addEventListener('click', function(e) {
+galleryDisplay.addEventListener('click', function(e, Gid) {
 
     if (e.target.classList.contains('delete')) {
         if(confirm(`You are about to delete this Gallery`)) {
             e.target.parentElement.parentElement.remove();
         
-            Store.removeGallery(e.target.previousSibling.firstElementChild)
+            Store.removeGallery(Gid)
         }
     }
-
-    // if (e.target.parentElement.classList.contains('upload')) {
-    //     console.log('goal')
-        
-    //         const img = document.createElement('img')
-    //         img.src = URL.createObjectURL(e.target.file)
-    //         images = document.querySelector('.imageDisplay')
-    //         images.appendChild(img)   ;
-    //     };
     
     // e.preventDefault();
 });
-
-
-function loadFile(event, Gid) {
-
-    const img = document.createElement('img')
-    img.classList='pic grid grid-col'
-    img.style.width = '100px'
-    img.style.height = '100px'
-    img.style.background = 'red'
-    // img.src = URL.createObjectURL(event.target.files[0]) | '#'
-    // let images = document.querySelector('.imageDisplay' + Gid)
-    document.body.appendChild(img)
-    // console.log(images)  
-    // images.appendChild(img)   
-
- 
-}
 
 

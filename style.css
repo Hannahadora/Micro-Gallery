@@ -4,19 +4,19 @@ body{
 #signUpForm, 
 #loginForm {
     width: 33.3%;
-    margin: auto;
+    margin: 70px auto;
     border-radius: 4px;
     background: white;
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
-    gap:20px;  
+    gap:10px;  
     font-size: 14px;
 }
 .form-input{
     padding: 5px;
-    border: 1px solid gray;
-    border-radius: 4px;
+    border-bottom: 1px solid gray;
+    /* border-radius: 4px; */
     font-size: 14px;
 }
 .form-input :focus {
@@ -32,7 +32,7 @@ input[type='submit'] {
 }
 select {
     padding: 5px;
-    border: 1px solid gray;
+    border-bottom: 1px solid gray;
     border-radius: 4px;
 }
 
@@ -41,10 +41,11 @@ Nav {
     flex: row;
     align-items: center;
     justify-content: space-between;
+    padding: 12px 0;
 }
 
 .nav {
-    padding: 15px 0;
+    margin: 10px 0px;
     color: #fff;
 }
 
@@ -81,6 +82,12 @@ Nav {
     color: green;
 }
 
+.galTem {
+    border: 1px dashed blue;
+    padding: 20px;
+    height: auto;
+}
+
 /* .gn {
     width: auto;
     padding: 5px;
@@ -90,8 +97,9 @@ Nav {
 } */
 
 .upload {
-    border-radius: 20%;
-    padding: 2px 7px;
+    background-color: rgb(34, 160, 34);
+    padding: 4px 20px;
+    margin: 12px 0;
 }
 
 .wedge {
