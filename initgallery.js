@@ -14,9 +14,13 @@ document.addEventListener('DOMContentLoaded',  function() {
 
     ui.clearFields()
 
-    Store.displayGalleries()
+            fetchGalleryImages()
 
+            Store.displayGalleries()
+     
 })
+
+
 
 createBtn.addEventListener('click', (e) => {
     if(intro.style.display == 'block') {
@@ -67,3 +71,63 @@ galleryForm.addEventListener('submit', function(e) {
 
     e.preventDefault()
 });
+
+
+function fetchGalleryImages(current){
+
+    const galleryTemplate =(Gid, title)=>  {
+        return   ` <div class = "galTem">
+                        <div>
+                            <div class="relative flex flex-col gap-10">
+                                <p class="gn text-xs bg-blue-200 text-gray-500 rounded-xl p-2 text-white">${title} Gallery</p>
+                                <div id="viewBtn-${Gid}"></div>
+                            </div>
+                            <div id="imageDisplay${Gid}" class=" grid grid-cols-2">
+                        </div>
+                    </div>
+                 `              
+    }
+
+    gGUId()
+
+    galleries = JSON.parse(localStorage.getItem('galleries'));
+    if(galleries) {
+        galleries = galleries.map((current, idx, array) => {
+            current && current.images ? current.images.slice(0, 3).map((image, imagidx, imgArray)=>{
+                console.log(current, galleries)
+
+                const parser = new DOMParser();
+
+                const button = document.createElement('button')
+                    button.innerHTML = 'View All Photos'
+                    button.className = "bg-white px-2 py-1 text-xs"
+                    button.style.display = 'block'
+                    button.addEventListener('click',(e)=> openGallery( e,`${current.Gid}`))  
+                        
+                const doc = parser.parseFromString(galleryTemplate(current.Gid, current.title), "text/html")
+                doc.querySelector(`#viewBtn-${current.Gid}`).appendChild(button)
+                galleryDisplay.appendChild(doc.documentElement)
+                
+                const img = document.createElement('img')
+                img.style.background = 'red'
+                img.src = image
+                document.querySelector(`#imageDisplay-${current.Gid}`).appendChild(img)
+                galleryDisplay.appendChild(imageDisplay)
+            }): alert('nothing')
+        })
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

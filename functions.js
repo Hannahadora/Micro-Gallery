@@ -14,6 +14,5 @@ const randomString = function (length) {
 
 function openGallery(e, Gid) {
     e.preventDefault()
-
-    location.href = 'galleryView.html'
+    location.href = `galleryView.html?gid=${Gid}`
 }

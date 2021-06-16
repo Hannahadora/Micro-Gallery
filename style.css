@@ -88,13 +88,13 @@ Nav {
     height: auto;
 }
 
-/* .gn {
+.gn {
     width: auto;
     padding: 5px;
     font-size: 18px;
     font-weight: bold;
     border-radius: 10px;
-} */
+}
 
 .upload {
     background-color: rgb(34, 160, 34);
