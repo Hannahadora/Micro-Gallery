@@ -36,7 +36,7 @@ function addImages(Gid, src) {
     
    
 
-function loadFile(event, Gid) {
+function previewFile(event, Gid) {
 
     // console.log(Gid)
     if(!Gid){
@@ -49,13 +49,23 @@ function loadFile(event, Gid) {
     const img = document.createElement('img')
     img.style.weight = '250px'
     img.style.height = '250px'
-    img.src = URL.createObjectURL(event.target.files[0])
-    // let images = document.querySelector('#photoDisplay' + Gid)
-        
-    imgRack.appendChild(img)
-    // images.appendChild(img)  
 
-    addImages(Gid, img.src)
+    const file = document.querySelector('input[type=file]').files[0];
+    const reader = new FileReader()
+
+    reader.addEventListener('load', function() {
+        console.log(file)
+        img.src = reader.result;
+        localStorage[Gid + file.name] = img.src
+    }, false);
+
+    if (file) {
+        reader.readAsDataURL(file)
+    }
+
+    imgRack.appendChild(img)
+
+    addImages(Gid, (Gid + file.name))
 }
 
 
@@ -79,7 +89,7 @@ function fetchImages(Gid){
         gallery.images.map((image, imagidx, imgArray)=>{
             const img = document.createElement('img')
             img.style.background = 'red'
-            img.src = image
+            img.src = localStorage[image]
             imgRack.appendChild(img)   
 
             console.log(gallery)

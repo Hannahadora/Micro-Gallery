@@ -153,11 +153,3 @@ class Store {
         console.log(Gid)
     }
 }
-
-
-
-
-{/* <div>
-<input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
-<label for="file" style="cursor: pointer;" class="upload">Upload Image</label>
-</div> */}

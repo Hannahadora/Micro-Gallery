@@ -16,19 +16,19 @@
     </Nav>
 
     <div id="galleryContent">
-        <div class="wedge bg-white flex items-center justify-between w-full fixed z-50">
+        <div class="wedge bg-white flex md:flex-row flex-col items-center justify-between w-full fixed z-50">
             <button class="px-5 py-1 my-3 font-medium border hover:border-black rounded text-sm"><a href="initgallery.html">Close</a></button>
             <p id="gn" class="px-5 py-1 my-3 font-medium text-sm"></p>
             <div class="flex items-center justify-between gap-5">
                 <button id="DeleteBtn" class="px-5 py-1 my-3 font-medium bg-red-300 hover:bg-red-500 rounded text-sm">Delete Gallery</button>
                 <div>
-                    <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+                    <input type="file"  accept="image/*" name="image" id="file"  onchange="previewFile(event)" style="display: none;">
                     <label for="file" style="cursor: pointer;" class="upload">Upload Image</label>
                 </div>
             </div>
         </div>
 
-        <div id="imgRack" class="wedge grid grid-cols-4 relative top-20 my-10">
+        <div id="imgRack" class="wedge grid md:grid-cols-4 grid-cols-2 gap-5 relative lg:top-20 top-44 my-10">
 
         </div>
 
