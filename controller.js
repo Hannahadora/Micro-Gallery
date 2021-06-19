@@ -14,7 +14,7 @@ function gGUId() {
 };
 
 const galleryTemplate =(Gid, title)=>  {
-    return   ` <div class = "galTem">
+    return   ` <div class="galTem h-72">
                     <div>
                         <div class="relative flex flex-col gap-10">
                             <p class="gn text-xs bg-blue-200 text-gray-500 rounded-xl p-2 text-white">${title} Gallery</p>

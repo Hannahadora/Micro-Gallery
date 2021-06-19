@@ -1,5 +1,5 @@
 body{
-    font-family: Avenir next;
+    font-family: 'open sans';
 }
 #signUpForm, 
 #loginForm {
@@ -85,14 +85,14 @@ Nav {
 .galTem {
     border: 1px dashed blue;
     padding: 20px;
-    height: auto;
+    background-color: black;
 }
 
 .gn {
     width: auto;
-    padding: 5px;
+    padding: 5px 10px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: medium;
     border-radius: 10px;
 }
 
@@ -105,6 +105,34 @@ Nav {
 .wedge {
     padding: 0 100px; 
 }
+
+.pic :nth-child(1) {
+    grid-row: span 2 / span 2;	
+    grid-column: span 2 / span 2;	
+}
+
+.modal { 
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  }
+
+.modal-content, #caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+  }
 
 @media (max-width:1024px) {
     #signUpForm,

@@ -76,9 +76,9 @@ galleryForm.addEventListener('submit', function(e) {
 function fetchGalleryImages(current){
 
     const galleryTemplate =(Gid, title)=>  {
-    return `<div class="newTem">
-                <div class="relative flex flex-col gap-10">
-                    <p class="gn text-xs bg-blue-200 text-gray-500 rounded-xl p-2 text-white">${title} Gallery</p>
+    return `<div class="newTem relative">
+                <div class="absolute top-40 left-10 flex flex-col gap-10">
+                    <p class="gn text-xs bg-black text-gray-500 rounded text-white">${title} Gallery</p>
                     <div id="viewBtn-${Gid}"></div>
                 </div>
 
@@ -94,7 +94,7 @@ function fetchGalleryImages(current){
 
             const button = document.createElement('button')
             button.innerHTML = 'View All Photos'
-            button.className = "bg-white px-2 py-1 text-xs"
+            button.className = "bg-white px-2 py-1 text-xs font-medium"
             button.style.display = 'block'
             button.addEventListener('click',(e)=> openGallery( e,`${current.Gid}`))
 
@@ -103,11 +103,13 @@ function fetchGalleryImages(current){
             doc.querySelector(`#viewBtn-${current.Gid}`).appendChild(button)
 
             const imagesview = document.createElement('div')
-            imagesview.classList='pic grid grid-cols-3 grid-rows-2'
+            imagesview.classList='pic  h-72 grid grid-cols-3 grid-rows-2 gap-1'
 
             current && current.images ? current.images.slice(0, 3).map((image, imagidx, imgArray)=>{
                 const img = document.createElement('img')
-                img.style.background = 'red'
+                img.className = 'rounded'
+                img.style.width = '100%'
+                img.style.height = '100%'
                 img.src = localStorage[image]
                 imagesview.appendChild(img)   
             }): alert(`no images for gallery ${current.Gid}`)

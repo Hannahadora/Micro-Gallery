@@ -47,8 +47,10 @@ function previewFile(event, Gid) {
     }
 
     const img = document.createElement('img')
-    img.style.weight = '250px'
+    img.className = 'rounded cursor-pointer'
+    img.style.width = '100%'
     img.style.height = '250px'
+    img.addEventListener('click', openModal(Gid + file.name))
 
     const file = document.querySelector('input[type=file]').files[0];
     const reader = new FileReader()
@@ -71,6 +73,36 @@ function previewFile(event, Gid) {
 
 
 
+function openModal(Gid, src) {
+   const modal = document.createElement('div')
+   modal.id = 'myModal'
+   modal.className = 'modal bg-red-200'
+
+   const close = document.createElement('p')
+   close.className = 'close'
+   close.innerHTML = 'close'
+
+   const modalContent = document.createElement('img')
+   modalContent.className = 'modal-content'
+   modalContent.id = `${Gid}/${file.name}`
+   modalContent.src = localStorage[Gid + file.name]
+
+   const modalCaption = document.createElement('p')
+   modalCaption.id = 'caption'   
+   modalCaption.innerHTML = `${file.name}`
+
+    modal.appendChild(modalContent)
+    modal.appendChild(close)
+    modal.appendChild(modalCaption)
+
+    document.body.appendChild(modal)
+    
+}
+
+
+
+
+
 
 function fetchImages(Gid){
 
@@ -88,8 +120,11 @@ function fetchImages(Gid){
 
         gallery.images.map((image, imagidx, imgArray)=>{
             const img = document.createElement('img')
-            img.style.background = 'red'
+            img.className = 'rounded'
+            img.style.width = '100%'
+            img.style.height = '250px'
             img.src = localStorage[image]
+            img.addEventListener('click', openModal(Gid + file.name))
             imgRack.appendChild(img)   
 
             console.log(gallery)
@@ -101,18 +136,18 @@ function fetchImages(Gid){
 
 
 
-// galleryDisplay.addEventListener('click', function(e, Gid) {
-
-//     if (e.target.classList.contains('delete')) {
-//         if(confirm(`You are about to delete this Gallery`)) {
-//             e.target.parentElement.parentElement.remove();
+galleryContent.addEventListener('click', function(e, Gid) {
+    if (e.target.classList.contains('delete')) {
+        if(confirm(`You are about to delete this Gallery`)) {
+            e.target.parentElement.parentElement.remove(   );
         
-//             Store.removeGallery(Gid)
-//         }
-//     }
+            Store.removeGallery(Gid)
+            location.href = 'initgallery.html'
+        }
+    }
     
-//     // e.preventDefault();
-// });
+    // e.preventDefault();
+});
 
 
 
